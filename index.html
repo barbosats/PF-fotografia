@@ -60,23 +60,35 @@
         }
         .about, .gallery, .testimonials, .contact {
             margin-bottom: 50px;
-        }
-        .gallery img {
-            display: flex;
-            flex-wrap: wrap;            /* Permite que as imagens se ajustem para a próxima linha */
-            justify-content: center;    /* Alinha as imagens no centro */
-            gap: 20px;                  /* Espaço entre as imagens */
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        
+        }    
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: auto;
+       }
 
-                                        /* Definir tamanho adequado para as imagens */
-        .gallery img {
-            width: 30%;    /* Ajuste para 3 imagens por linha */
-            height: auto;  /* Mantém a proporção da imagem */
-            margin-top: 20px; /* Distância superior para as imagens */
-        }
+        .slide {
+            display: none;
+       }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+       }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+       }
+
+        @keyframes fade {
+            from { opacity: .4 }
+            to { opacity: 1 }
+       }
+
         .testimonial {
             background: #f8f1f1;
             padding: 20px;
@@ -134,12 +146,21 @@
         <p>Especialista em fotografia de parto, nossa missão é registrar com delicadeza e profissionalismo os primeiros momentos de vida, criando memórias inesquecíveis para as famílias.</p>
     </section>
 
-    <section id="gallery" class="gallery" data-aos="fade-up">
+    <section id="gallery" class="gallery-slideshow">
         <h2>Galeria</h2>
-        <img src="images/fofo-recem-nascido-closeup.jpg" alt="Foto 1">
-        <img src="images/periodo-pos-natal-com-mae-e-filho.jpg" alt="Foto 2">
-        <img src="images/um-bebe-recem-nascido.jpg" alt="Foto 3">
-    </section>
+        <div class="slideshow-container">
+          <div class="slide fade">
+            <img src="images/fofo-recem-nascido-closeup.jpg" alt="Foto 1">
+          </div>
+          <div class="slide fade">
+            <img src="images/periodo-pos-natal-com-mae-e-filho.jpg" alt="Foto 2">
+          </div>
+          <div class="slide fade">
+            <img src="images/um-bebe-recem-nascido.jpg" alt="Foto 3">
+          </div>
+        </div>
+      </section>
+      
 
     <section id="testimonials" class="testimonials" data-aos="fade-left">
         <h2>Depoimentos</h2>
@@ -169,5 +190,21 @@
     <script>
         AOS.init();
     </script>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+      
+        function showSlides() {
+          const slides = document.getElementsByClassName("slide");
+          for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          slideIndex++;
+          if (slideIndex > slides.length) { slideIndex = 1; }
+          slides[slideIndex - 1].style.display = "block";
+          setTimeout(showSlides, 4000); // troca a cada 4 segundos
+        }
+      </script>
+      
 </body>
 </html>
